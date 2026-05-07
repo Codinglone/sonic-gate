@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/Codinglone/sonic-gate/discussions
+    about: Ask questions, share ideas, or discuss usage
+  - name: Documentation Issue
+    url: https://github.com/Codinglone/sonic-gate/issues
+    about: Report typos or suggest documentation improvements
