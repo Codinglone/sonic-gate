@@ -113,6 +113,7 @@ def test_format_analyzer(tmp_path: Path):
 
 
 from sonic_gate.analyzers.video import VideoAnalyzer
+from sonic_gate.analyzers.whisper_probe import WhisperProbe
 
 
 def create_test_video(path: str, duration_sec: float = 1.0):
@@ -139,3 +140,44 @@ def test_video_analyzer(tmp_path: Path):
 
     assert "video_duration" in result.metrics
     assert "video_resolution" in result.metrics
+
+
+def create_speech_wav(path: str, duration_sec: float = 3.0):
+    """Create a WAV file with actual speech using flite TTS."""
+    text = "Hello world, this is a test of the audio analysis system. "
+    # Repeat text to reach desired duration (approx 130 words per minute)
+    words_needed = int((duration_sec / 60.0) * 130)
+    words = text.split()
+    repeated_text = " ".join(words * ((words_needed // len(words)) + 1))
+    repeated_text = " ".join(repeated_text.split()[:words_needed])
+
+    # Use flite to generate speech
+    import tempfile
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
+        f.write(repeated_text)
+        txt_path = f.name
+
+    subprocess.run(
+        ["flite", "-f", txt_path, path],
+        capture_output=True,
+        check=True,
+    )
+    import os
+    os.unlink(txt_path)
+
+
+def test_whisper_probe(tmp_path: Path):
+    wav = str(tmp_path / "test.wav")
+    create_speech_wav(wav, duration_sec=3.0)
+
+    config = Config()
+    config.rules.ai_probe.whisper_model = "tiny"
+    config.rules.ai_probe.min_confidence = -1.0  # Very low to avoid confidence failure
+    config.rules.ai_probe.expected_language = None  # Skip language check
+    analyzer = WhisperProbe(config)
+    result = AnalysisResult(file_path=wav, passed=True)
+    analyzer.analyze(wav, result)
+
+    assert "whisper_language" in result.metrics
+    assert "whisper_confidence" in result.metrics
+    assert "speaking_rate_wpm" in result.metrics
