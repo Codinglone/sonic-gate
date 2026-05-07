@@ -4,21 +4,45 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sonic-gate"
-version = "0.1.0"
-description = "CLI audio/video quality gate with AI probing"
+version = "0.1.1"
+description = "CLI-first deterministic audio/video quality gate with optional AI probing"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [{name = "Codinglone", email = "codinglone@example.com"}]
 requires-python = ">=3.9"
+keywords = [
+    "audio-quality",
+    "video-quality",
+    "ffmpeg",
+    "cli-tool",
+    "lufs",
+    "silence-detection",
+    "media-processing",
+    "quality-gate",
+    "audio-analysis",
+    "pydub",
+    "whisper",
+    "openai-whisper",
+    "devops",
+    "ci-cd",
+    "batch-processing",
+]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+    "Environment :: Console",
+    "Typing :: Typed",
 ]
 dependencies = [
     "typer>=0.9.0",
@@ -26,11 +50,13 @@ dependencies = [
     "pyyaml>=6.0",
     "pydub>=0.25.1",
     "rich>=13.0",
-    "openai-whisper>=20231117",
     "numpy>=1.24",
 ]
 
 [project.optional-dependencies]
+ai = [
+    "openai-whisper>=20231117",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
@@ -41,6 +67,12 @@ dev = [
 
 [project.scripts]
 sonic-gate = "sonic_gate.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/Codinglone/sonic-gate"
+Repository = "https://github.com/Codinglone/sonic-gate"
+Issues = "https://github.com/Codinglone/sonic-gate/issues"
+Changelog = "https://github.com/Codinglone/sonic-gate/releases"
 
 [tool.setuptools.packages.find]
 where = ["."]

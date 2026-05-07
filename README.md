@@ -1,5 +1,10 @@
 # Sonic Gate
 
+[![PyPI](https://img.shields.io/pypi/v/sonic-gate)](https://pypi.org/project/sonic-gate/)
+[![Python](https://img.shields.io/pypi/pyversions/sonic-gate)](https://pypi.org/project/sonic-gate/)
+[![License](https://img.shields.io/pypi/l/sonic-gate)](https://github.com/Codinglone/sonic-gate/blob/master/LICENSE)
+[![Downloads](https://img.shields.io/pypi/dm/sonic-gate)](https://pypi.org/project/sonic-gate/)
+
 > Stop paying humans to listen to corrupted audio files. Fix them automatically.
 
 Sonic Gate is a CLI-first audio/video quality gate that uses deterministic audio analysis to catch corrupted, invalid, or low-quality audio files before they reach human reviewers or downstream pipelines.
@@ -21,13 +26,17 @@ Sonic Gate is a CLI-first audio/video quality gate that uses deterministic audio
 ## Installation
 
 ```bash
+# Install the deterministic core (fast, no AI dependencies)
 pip install sonic-gate
+
+# With optional AI probe (includes Whisper)
+pip install "sonic-gate[ai]"
 ```
 
 Or install from source:
 
 ```bash
-git clone https://github.com/yourusername/sonic-gate.git
+git clone https://github.com/Codinglone/sonic-gate.git
 cd sonic-gate
 pip install -e .
 ```
@@ -51,7 +60,7 @@ sonic-gate --fix ./recordings/
 sonic-gate --format json ./files/ > report.json
 
 # Demo mode
-sonic-gate --demo
+sonic-gate demo
 ```
 
 ## Configuration
