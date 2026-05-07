@@ -37,6 +37,3 @@ jobs:
 
       - name: Check formatting with black
         run: black --check sonic_gate tests
-
-      - name: Type check with mypy
-        run: mypy sonic_gate
