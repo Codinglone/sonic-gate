@@ -17,7 +17,6 @@ from sonic_gate.analyzers.silence import SilenceAnalyzer
 from sonic_gate.analyzers.duration import DurationAnalyzer
 from sonic_gate.analyzers.format import FormatAnalyzer
 from sonic_gate.analyzers.video import VideoAnalyzer
-from sonic_gate.analyzers.whisper_probe import WhisperProbe
 from sonic_gate.fix.engine import FixEngine
 
 app = typer.Typer(
@@ -52,6 +51,7 @@ def get_analyzers(config: Config):
         VideoAnalyzer(config),
     ]
     if config.rules.ai_probe.enabled:
+        from sonic_gate.analyzers.whisper_probe import WhisperProbe
         analyzers.append(WhisperProbe(config))
     return analyzers
 

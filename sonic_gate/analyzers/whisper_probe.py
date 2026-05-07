@@ -1,14 +1,9 @@
 """AI probe using OpenAI Whisper for quality analysis."""
 
-import warnings
 from typing import Optional
-
-import whisper
 
 from sonic_gate.analyzers.base import BaseAnalyzer
 from sonic_gate.core.result import AnalysisResult
-
-warnings.filterwarnings("ignore", message="FP16 is not supported on CPU")
 
 
 class WhisperProbe(BaseAnalyzer):
@@ -19,6 +14,11 @@ class WhisperProbe(BaseAnalyzer):
         self.model = None
 
     def _load_model(self):
+        import warnings
+        import whisper
+
+        warnings.filterwarnings("ignore", message="FP16 is not supported on CPU")
+
         if self.model is not None:
             return
 
@@ -31,6 +31,8 @@ class WhisperProbe(BaseAnalyzer):
         self._model_cache[model_name] = self.model
 
     def analyze(self, file_path: str, result: AnalysisResult) -> None:
+        import whisper
+
         # Skip if AI probe not configured
         if not self.config.rules.ai_probe:
             return

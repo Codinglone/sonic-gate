@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sonic-gate"
-version = "0.1.2"
+version = "0.1.3"
 description = "CLI-first deterministic audio/video quality gate with optional AI probing"
 readme = "README.md"
 license = {text = "MIT"}

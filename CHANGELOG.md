@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.3] - 2026-05-07
+
+### Fixed
+- Made `openai-whisper` imports lazy so CI/tests pass without the optional `[ai]` dependency
+- Fixed `test_cli_version` assertion for v0.1.2
+
 ## [0.1.2] - 2026-05-07
 
 ### Fixed
