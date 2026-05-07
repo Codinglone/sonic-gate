@@ -1,3 +1,5 @@
+import subprocess
+
 import pytest
 from sonic_gate.analyzers.base import BaseAnalyzer
 from sonic_gate.core.result import AnalysisResult
@@ -108,3 +110,32 @@ def test_format_analyzer(tmp_path: Path):
 
     assert result.passed is False
     assert any(f.rule == "format" for f in result.failures)
+
+
+from sonic_gate.analyzers.video import VideoAnalyzer
+
+
+def create_test_video(path: str, duration_sec: float = 1.0):
+    """Create a test MP4 with a silent audio track using FFmpeg."""
+    subprocess.run(
+        [
+            "ffmpeg", "-f", "lavfi", "-i", f"sine=frequency=440:duration={duration_sec}",
+            "-f", "lavfi", "-i", f"color=c=black:s=320x240:d={duration_sec}",
+            "-shortest", "-y", path,
+        ],
+        capture_output=True,
+        check=True,
+    )
+
+
+def test_video_analyzer(tmp_path: Path):
+    video = str(tmp_path / "test.mp4")
+    create_test_video(video, duration_sec=2.0)
+
+    config = Config()
+    analyzer = VideoAnalyzer(config)
+    result = AnalysisResult(file_path=video, passed=True)
+    analyzer.analyze(video, result)
+
+    assert "video_duration" in result.metrics
+    assert "video_resolution" in result.metrics
