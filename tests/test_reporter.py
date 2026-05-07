@@ -19,9 +19,11 @@ def test_analysis_result_failed():
 def test_reporter_table():
     results = [
         AnalysisResult(file_path="a.wav", passed=True),
-        AnalysisResult(file_path="b.wav", passed=False, failures=[
-            Failure(rule="lufs", actual=-30.0, expected="[-24, -16]")
-        ]),
+        AnalysisResult(
+            file_path="b.wav",
+            passed=False,
+            failures=[Failure(rule="lufs", actual=-30.0, expected="[-24, -16]")],
+        ),
     ]
     reporter = Reporter(format="table", show_passed=True)
     output = reporter.render(results)

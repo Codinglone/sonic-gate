@@ -21,7 +21,7 @@ class SilenceAnalyzer(BaseAnalyzer):
         nonsilent = detect_nonsilent(
             audio,
             min_silence_len=100,  # 100ms
-            silence_thresh=-50,   # -50 dBFS
+            silence_thresh=-50,  # -50 dBFS
         )
 
         # Calculate longest silence

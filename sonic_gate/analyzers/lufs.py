@@ -27,9 +27,14 @@ class LUFSAnalyzer(BaseAnalyzer):
     def _calculate_lufs(self, file_path: str) -> float:
         try:
             cmd = [
-                "ffmpeg", "-i", file_path,
-                "-af", "ebur128=framelog=verbose",
-                "-f", "null", "-",
+                "ffmpeg",
+                "-i",
+                file_path,
+                "-af",
+                "ebur128=framelog=verbose",
+                "-f",
+                "null",
+                "-",
             ]
             process = subprocess.run(
                 cmd,
@@ -38,7 +43,7 @@ class LUFSAnalyzer(BaseAnalyzer):
                 text=True,
                 timeout=30,
             )
-            match = re.search(r'I:\s*(-?\d+\.\d+)\s*LUFS', process.stderr)
+            match = re.search(r"I:\s*(-?\d+\.\d+)\s*LUFS", process.stderr)
             if match:
                 return float(match.group(1))
         except Exception:

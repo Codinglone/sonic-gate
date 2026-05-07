@@ -32,10 +32,15 @@ class VideoAnalyzer(BaseAnalyzer):
     def _get_video_metadata(self, file_path: str) -> dict:
         try:
             cmd = [
-                "ffprobe", "-v", "error",
-                "-show_entries", "format=duration",
-                "-show_entries", "stream=codec_name,width,height",
-                "-of", "json",
+                "ffprobe",
+                "-v",
+                "error",
+                "-show_entries",
+                "format=duration",
+                "-show_entries",
+                "stream=codec_name,width,height",
+                "-of",
+                "json",
                 file_path,
             ]
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
@@ -64,12 +69,19 @@ class VideoAnalyzer(BaseAnalyzer):
 
             stream = self.config.video.audio_stream
             cmd = [
-                "ffmpeg", "-i", file_path,
-                "-map", f"0:a:{stream}",
-                "-acodec", "pcm_s16le",
-                "-ar", "48000",
-                "-ac", "1",
-                "-y", str(output),
+                "ffmpeg",
+                "-i",
+                file_path,
+                "-map",
+                f"0:a:{stream}",
+                "-acodec",
+                "pcm_s16le",
+                "-ar",
+                "48000",
+                "-ac",
+                "1",
+                "-y",
+                str(output),
             ]
             subprocess.run(cmd, capture_output=True, check=True, timeout=30)
             return str(output)

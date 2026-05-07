@@ -120,9 +120,18 @@ def create_test_video(path: str, duration_sec: float = 1.0):
     """Create a test MP4 with a silent audio track using FFmpeg."""
     subprocess.run(
         [
-            "ffmpeg", "-f", "lavfi", "-i", f"sine=frequency=440:duration={duration_sec}",
-            "-f", "lavfi", "-i", f"color=c=black:s=320x240:d={duration_sec}",
-            "-shortest", "-y", path,
+            "ffmpeg",
+            "-f",
+            "lavfi",
+            "-i",
+            f"sine=frequency=440:duration={duration_sec}",
+            "-f",
+            "lavfi",
+            "-i",
+            f"color=c=black:s=320x240:d={duration_sec}",
+            "-shortest",
+            "-y",
+            path,
         ],
         capture_output=True,
         check=True,
@@ -153,6 +162,7 @@ def create_speech_wav(path: str, duration_sec: float = 3.0):
 
     # Use flite to generate speech
     import tempfile
+
     with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
         f.write(repeated_text)
         txt_path = f.name
@@ -163,11 +173,13 @@ def create_speech_wav(path: str, duration_sec: float = 3.0):
         check=True,
     )
     import os
+
     os.unlink(txt_path)
 
 
 def test_whisper_probe(tmp_path: Path):
     import shutil
+
     if not shutil.which("flite"):
         pytest.skip("flite not installed")
     try:

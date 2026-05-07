@@ -104,7 +104,9 @@ class WhisperProbe(BaseAnalyzer):
 
             # Crosstalk (simple heuristic: many short segments)
             if self.config.rules.ai_probe.detect_crosstalk:
-                short_segments = sum(1 for seg in segments if seg.get("end", 0) - seg.get("start", 0) < 1.0)
+                short_segments = sum(
+                    1 for seg in segments if seg.get("end", 0) - seg.get("start", 0) < 1.0
+                )
                 if len(segments) > 0 and short_segments / len(segments) > 0.5:
                     result.add_failure(
                         "crosstalk",

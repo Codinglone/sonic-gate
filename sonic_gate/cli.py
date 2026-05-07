@@ -52,6 +52,7 @@ def get_analyzers(config: Config):
     ]
     if config.rules.ai_probe.enabled:
         from sonic_gate.analyzers.whisper_probe import WhisperProbe
+
         analyzers.append(WhisperProbe(config))
     return analyzers
 
@@ -60,7 +61,9 @@ def get_analyzers(config: Config):
 def analyze(
     paths: List[str] = typer.Argument(..., help="Files or directories to analyze"),
     config: Optional[str] = typer.Option(None, "--config", "-c", help="Path to config file"),
-    format: str = typer.Option("table", "--format", "-f", help="Output format (table/json/csv/markdown)"),
+    format: str = typer.Option(
+        "table", "--format", "-f", help="Output format (table/json/csv/markdown)"
+    ),
     show_passed: bool = typer.Option(False, "--show-passed", help="Show passed files in output"),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Include detailed metrics"),
     fix: bool = typer.Option(False, "--fix", help="Auto-repair failed files"),

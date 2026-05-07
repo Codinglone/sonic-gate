@@ -43,10 +43,10 @@ class Reporter:
                 continue
 
             status = "[green]PASS[/green]" if result.passed else "[red]FAIL[/red]"
-            failures = ", ".join(
-                f"{f.rule}: {f.actual} (expected: {f.expected})"
-                for f in result.failures
-            ) or "—"
+            failures = (
+                ", ".join(f"{f.rule}: {f.actual} (expected: {f.expected})" for f in result.failures)
+                or "—"
+            )
 
             if self.verbose:
                 metrics = ", ".join(f"{k}={v}" for k, v in result.metrics.items())
@@ -71,7 +71,12 @@ class Reporter:
                     "file": r.file_path,
                     "passed": r.passed,
                     "failures": [
-                        {"rule": f.rule, "actual": f.actual, "expected": f.expected, "message": f.message}
+                        {
+                            "rule": f.rule,
+                            "actual": f.actual,
+                            "expected": f.expected,
+                            "message": f.message,
+                        }
                         for f in r.failures
                     ],
                     "metrics": r.metrics,
@@ -97,7 +102,11 @@ class Reporter:
         return output.getvalue()
 
     def _render_markdown(self, results: List[AnalysisResult]) -> str:
-        lines = ["# Sonic Gate Analysis Report\n", "| File | Status | Failures |", "|------|--------|----------|"]
+        lines = [
+            "# Sonic Gate Analysis Report\n",
+            "| File | Status | Failures |",
+            "|------|--------|----------|",
+        ]
 
         for result in results:
             if not self.show_passed and result.passed:

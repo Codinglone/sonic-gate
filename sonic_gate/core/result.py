@@ -21,7 +21,9 @@ class AnalysisResult:
     processing_time_ms: float = 0.0
     backend_used: str = ""
 
-    def add_failure(self, rule: str, actual: Any, expected: Any, message: Optional[str] = None) -> None:
+    def add_failure(
+        self, rule: str, actual: Any, expected: Any, message: Optional[str] = None
+    ) -> None:
         self.failures.append(Failure(rule=rule, actual=actual, expected=expected, message=message))
         self.passed = False
 
