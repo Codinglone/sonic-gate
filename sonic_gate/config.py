@@ -24,6 +24,7 @@ class TraditionalRules(BaseModel):
 
 
 class AiProbeRules(BaseModel):
+    enabled: bool = False
     whisper_model: str = "base"
     min_confidence: float = Field(-1.0, le=1.0)
     expected_language: Optional[str] = None

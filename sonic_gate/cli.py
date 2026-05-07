@@ -51,7 +51,7 @@ def get_analyzers(config: Config):
         LUFSAnalyzer(config),
         VideoAnalyzer(config),
     ]
-    if config.rules.ai_probe:
+    if config.rules.ai_probe.enabled:
         analyzers.append(WhisperProbe(config))
     return analyzers
 
