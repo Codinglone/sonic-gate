@@ -24,9 +24,24 @@ def test_config_from_dict():
     assert config.output.format == "json"
 
 
-def test_config_validation():
+def test_config_validation_lufs_range_length():
     with pytest.raises(ValueError):
         Config(rules={"traditional": {"lufs_range": [-30]}})  # Need 2 values
+
+
+def test_config_validation_lufs_range_min_ge_max():
+    with pytest.raises(ValueError):
+        Config(rules={"traditional": {"lufs_range": [-16.0, -24.0]}})  # min >= max
+
+
+def test_config_validation_invalid_whisper_model():
+    with pytest.raises(ValueError):
+        Config(rules={"ai_probe": {"whisper_model": "invalid_model"}})
+
+
+def test_config_validation_invalid_output_format():
+    with pytest.raises(ValueError):
+        Config(output={"format": "xml"})
 
 
 def test_load_config_from_file(tmp_path: Path):
