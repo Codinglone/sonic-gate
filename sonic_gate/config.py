@@ -25,7 +25,7 @@ class TraditionalRules(BaseModel):
 
 class AiProbeRules(BaseModel):
     whisper_model: str = "base"
-    min_confidence: float = Field(0.8, ge=0.0, le=1.0)
+    min_confidence: float = Field(-1.0, le=1.0)
     expected_language: Optional[str] = None
     detect_crosstalk: bool = False
     speaking_rate_range: List[float] = Field(default_factory=lambda: [100.0, 180.0])
