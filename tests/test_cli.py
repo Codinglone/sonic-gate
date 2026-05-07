@@ -1,6 +1,7 @@
 from typer.testing import CliRunner
 
 from sonic_gate.cli import app
+from sonic_gate import __version__
 
 runner = CliRunner()
 
@@ -14,4 +15,4 @@ def test_cli_help():
 def test_cli_version():
     result = runner.invoke(app, ["--version"])
     assert result.exit_code == 0
-    assert "0.1.4" in result.output
+    assert __version__ in result.output
