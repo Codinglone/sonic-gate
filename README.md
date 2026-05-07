@@ -4,6 +4,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/sonic-gate)](https://pypi.org/project/sonic-gate/)
 [![License](https://img.shields.io/pypi/l/sonic-gate)](https://github.com/Codinglone/sonic-gate/blob/master/LICENSE)
 [![Downloads](https://img.shields.io/pypi/dm/sonic-gate)](https://pypi.org/project/sonic-gate/)
+[![CI](https://github.com/Codinglone/sonic-gate/actions/workflows/ci.yml/badge.svg)](https://github.com/Codinglone/sonic-gate/actions/workflows/ci.yml)
 
 > Stop paying humans to listen to corrupted audio files. Fix them automatically.
 
@@ -40,6 +41,10 @@ git clone https://github.com/Codinglone/sonic-gate.git
 cd sonic-gate
 pip install -e .
 ```
+
+## Demo
+
+![Sonic Gate Demo](demo/demo.svg)
 
 ## Quick Start
 

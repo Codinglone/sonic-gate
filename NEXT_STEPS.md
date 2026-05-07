@@ -89,17 +89,22 @@ Address the issues found in code review:
 
 ### 3.1 Hacker News Post
 
-**Title:** *We use OpenAI Whisper as a $0 quality engineer*
+**Title:** *A deterministic audio quality gate that runs at 4ms/file and works in any language*
 
 **Body:**
 ```
-Sonic Gate is a CLI tool that catches corrupted, wrong-language, or low-quality audio files before they reach human reviewers.
+Sonic Gate is a CLI tool that catches corrupted, too-quiet, or low-quality audio files before they reach human reviewers or ML pipelines.
 
-The twist: we don't use Whisper to transcribe. We use it as a quality probe.
+The core insight: you don't need AI to catch 90% of audio quality problems.
 
-- Low confidence scores = bad mic, muffled audio, corruption
-- Wrong language detection = mislabeled datasets
-- Speaking rate anomalies = sped-up or slowed-down recordings
+- LUFS too low? FFmpeg ebur128, 2ms.
+- Dead silence? pydub, 1ms.
+- Corrupted file? Format check, <1ms.
+- Wrong duration? Header parse, instant.
+
+It processes files at ~4ms each, works in any language (Kinyarwanda, Tibetan, whatever), and needs no GPU.
+
+We do include an optional Whisper probe for speech-specific checks — language detection, confidence scoring — but it's off by default because Whisper fails on low-resource languages and adds 200ms/file overhead.
 
 It's like `eslint` but for audio files. Free, runs locally, no API keys.
 
@@ -109,27 +114,31 @@ github.com/Codinglone/sonic-gate
 ### 3.2 Reddit Posts
 
 **r/MachineLearning:**
-*"Validate your audio datasets before labeling - catch corrupted files, wrong languages, and bad recordings with a single CLI command"*
+*"Validate your audio datasets before labeling — deterministic checks at 4ms/file, works in any language including ones Whisper can't handle"*
 
 **r/podcasting:**
-*"Batch-check your recordings before editing - find silence, LUFS issues, and quality problems automatically"*
+*"Batch-check your recordings before editing — find silence, LUFS issues, and quality problems automatically"*
 
 **r/Python:**
-*"Sonic Gate: A CLI quality gate for audio files using Whisper as a quality probe (not just transcription)"*
+*"Sonic Gate: A deterministic CLI quality gate for audio files. No AI required, 4ms/file, works in any language. Optional Whisper probe available."*
+
+**r/audioengineering:**
+*"Automated LUFS/silence/format checking for bulk audio workflows — CLI tool with JSON output for CI pipelines"*
 
 ### 3.3 GitHub Topics
 
 Add topics to the repo:
 - `audio-processing`
-- `whisper`
+- `audio-quality`
 - `quality-assurance`
 - `cli`
 - `python`
 - `ffmpeg`
-- `openai-whisper`
 - `audio-analysis`
 - `data-validation`
 - `podcast`
+- `lufs`
+- `media-processing`
 
 ---
 

@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.2] - 2026-05-07
+
+### Fixed
+- Fixed author email in `pyproject.toml` (`codinglone@example.com` → `codinglone@gmail.com`)
+- Added missing Pydantic validator for `speaking_rate_range` (length, ordering, non-negative)
+- Fixed test assertions to match updated default config values
+
+### Added
+- GitHub Actions CI workflow running pytest across Python 3.9–3.12
+- CI badge in README
+- Terminal demo recording (`demo/demo.svg`) for README
+- Issue templates and contributing guidelines
+
+### Changed
+- NEXT_STEPS.md narrative flipped: deterministic-first, Whisper as optional footnote
+
 ## [0.1.1] - 2026-05-07
 
 ### Changed

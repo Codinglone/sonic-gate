@@ -39,6 +39,17 @@ class AiProbeRules(BaseModel):
             raise ValueError(f"whisper_model must be one of {allowed}")
         return v
 
+    @field_validator("speaking_rate_range")
+    @classmethod
+    def validate_speaking_rate_range(cls, v: List[float]) -> List[float]:
+        if len(v) != 2:
+            raise ValueError("speaking_rate_range must have exactly 2 values [min, max]")
+        if v[0] >= v[1]:
+            raise ValueError("speaking_rate_range[0] must be less than speaking_rate_range[1]")
+        if v[0] < 0:
+            raise ValueError("speaking_rate_range values must be non-negative")
+        return v
+
 
 class VideoConfig(BaseModel):
     extract_audio: bool = True
