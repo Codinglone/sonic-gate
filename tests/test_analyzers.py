@@ -167,6 +167,14 @@ def create_speech_wav(path: str, duration_sec: float = 3.0):
 
 
 def test_whisper_probe(tmp_path: Path):
+    import shutil
+    if not shutil.which("flite"):
+        pytest.skip("flite not installed")
+    try:
+        import whisper
+    except ImportError:
+        pytest.skip("openai-whisper not installed")
+
     wav = str(tmp_path / "test.wav")
     create_speech_wav(wav, duration_sec=3.0)
 

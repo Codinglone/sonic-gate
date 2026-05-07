@@ -42,10 +42,6 @@ cd sonic-gate
 pip install -e .
 ```
 
-## Demo
-
-![Sonic Gate Demo](demo/demo.svg)
-
 ## Quick Start
 
 ```bash

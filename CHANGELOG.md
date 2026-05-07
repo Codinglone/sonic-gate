@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.4] - 2026-05-07
+
+### Fixed
+- Skip `test_whisper_probe` when `flite` or `openai-whisper` is not installed (fixes CI)
+- Fixed `test_cli_version` assertion for v0.1.3
+
+### Removed
+- Blank demo SVG from README (will be replaced with proper recording later)
+
 ## [0.1.3] - 2026-05-07
 
 ### Fixed
