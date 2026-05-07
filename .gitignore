@@ -50,3 +50,5 @@ demo/*.mp4
 fixed/
 *.log
 .benchmarks/
+.pytest_cache/
+.mypy_cache/
